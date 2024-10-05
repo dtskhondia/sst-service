@@ -1,8 +1,9 @@
 package ge.bog.sst_service.controller;
 
 import ge.bog.sst_service.dto.ProviderDto;
-import ge.bog.sst_service.mapper.ProviderMapper;
-import ge.bog.sst_service.service.ProviderService;
+import ge.bog.sst_service.dto.ProviderGroupDto;
+import ge.bog.sst_service.mapper.ProviderGroupMapper;
+import ge.bog.sst_service.service.ProviderGroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,70 +17,70 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@RequestMapping("/providers")
-public class ProviderController {
+@RequestMapping("/providerGroups")
+public class ProviderGroupController {
     @Autowired
-    private ProviderMapper providerMapper;
+    private ProviderGroupMapper providerGroupMapper;
     @Autowired
-    private ProviderService providerService;
+    private ProviderGroupService providerGroupService;
 
-    @Operation(summary = "Create Provider")
+    @Operation(summary = "Create Provider Group")
     @ApiResponses(value = {
         @ApiResponse(
-            responseCode = "200",
-            description = "Provider Created",
+            responseCode = "201",
+            description = "Created",
             content = {
                 @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = ProviderDto.class)
+                    schema = @Schema(implementation = ProviderGroupDto.class)
                 )
             }
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Create Provider",
+            description = "Failed to Create",
             content = { @Content( mediaType = "application/json") }
         )
     })
     @PostMapping()
-    ProviderDto create(
-        @Parameter(description = "Provider Object to Be Created")
-        @RequestBody @Valid ProviderDto providerDto
+    ProviderGroupDto create(
+        @Parameter(description = "Provider Group to Be Created")
+        @RequestBody @Valid ProviderGroupDto providerGroupDto
     ){
-        return providerMapper.map(providerService.create(providerMapper.map(providerDto)));
+        return providerGroupMapper.map(providerGroupService.create(providerGroupMapper.map(providerGroupDto)));
     }
 
-    @Operation(summary = "Find Provider by Id")
+    @Operation(summary = "Find Provider Group by Id")
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Provider Found",
+            description = "Found",
             content = {
                     @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = ProviderDto.class)
+                            schema = @Schema(implementation = ProviderGroupDto.class)
                     )
             }
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Provider Not Found",
+            description = "Not Found",
             content = {@Content(mediaType = "application/json")}
         )
     })
     @GetMapping("/{id}")
-    ProviderDto find(
-        @Parameter(name = "id", description = "Provider Id", example = "1")
+    ProviderGroupDto find(
+        @Parameter(name = "id", description = "Provider Group Id", example = "1")
         @PathVariable Long id
     ){
-        ProviderDto providerDto = providerMapper.map(providerService.findById(id));
-        if(providerDto==null){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider Not Found");
+        ProviderGroupDto providerGroupDto = providerGroupMapper.map(providerGroupService.findById(id));
+        if(providerGroupDto==null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provider Group Not Found");
         }
-        return providerDto;
+        return providerGroupDto;
     }
 
-    @Operation(summary = "Update Provider by Id")
+    @Operation(summary = "Update Provider Group by Id")
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
@@ -98,33 +99,33 @@ public class ProviderController {
         )
     })
     @PutMapping("/{id}")
-    ProviderDto update(
-        @Parameter(name = "id", description = "Provider Id", example = "1")
+    ProviderGroupDto update(
+        @Parameter(name = "id", description = "Provider Group Id", example = "1")
         @PathVariable Long id,
-        @Parameter(description = "Provider Object to Be Updated")
-        @RequestBody @Valid ProviderDto providerDto
+        @Parameter(description = "Provider Group Object to Be Updated")
+        @RequestBody @Valid ProviderGroupDto providerGroupDto
     ){
-        return providerMapper.map(providerService.update(id, providerMapper.map(providerDto) ) );
+        return providerGroupMapper.map(providerGroupService.update(id, providerGroupMapper.map(providerGroupDto) ) );
     }
 
-    @Operation(summary = "Delete Provider By Id")
+    @Operation(summary = "Delete Provider Group By Id")
     @ApiResponses(value = {
         @ApiResponse(
-            responseCode = "200",
-            description = "Provider Deleted",
+            responseCode = "204",
+            description = "Deleted",
             content = {@Content(mediaType = "application/json")}
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Delete Provider",
+            description = "Failed to Delete",
             content = {@Content(mediaType = "application/json")}
         )
     })
     @DeleteMapping("/{id}")
     void delete(
-        @Parameter(name = "id", description = "Provider Id", example = "1")
+        @Parameter(name = "id", description = "Provider Group Id", example = "1")
         @PathVariable Long id
     ){
-        providerService.delete(id);
+        providerGroupService.delete(id);
     }
 }

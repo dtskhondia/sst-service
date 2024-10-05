@@ -4,9 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 
+import java.util.List;
+
 @Builder
-public record AddressDto(
+public record ProviderGroupDto(
     @JsonProperty(access = JsonProperty.Access.READ_ONLY) Long id,
-    @NotBlank String street,
-    @NotBlank String city
+    @NotBlank String name,
+    @NotBlank String description,
+    List<ProviderDto> providers
 ){}

@@ -1,18 +1,16 @@
 package ge.bog.sst_service.service;
 
 import ge.bog.sst_service.domain.Provider;
-import ge.bog.sst_service.repository.ProviderRepositoryJpa;
+import ge.bog.sst_service.repository.ProviderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
-@Primary
 @Service
+@Primary
 public class ProviderServiceImpl implements ProviderService {
     @Autowired
-    private ProviderRepositoryJpa providerRepository;
+    private ProviderRepository providerRepository;
 
     @Override
     public Provider create(Provider provider) {
@@ -20,13 +18,13 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public Optional<Provider> findById(Long id) {
-        return providerRepository.findById(id);
+    public Provider findById(Long id) {
+        return providerRepository.findById(id).orElseThrow();
     }
 
     @Override
     public Provider update(Long id, Provider provider) {
-        provider.setId(id); // TODO: check if mannual is ok
+        //provider.setId(id);  // TODO: check if mannual is ok
         return providerRepository.save(provider);
     }
 

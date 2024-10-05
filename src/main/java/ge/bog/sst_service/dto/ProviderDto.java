@@ -1,26 +1,19 @@
 package ge.bog.sst_service.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-
+import lombok.Builder;
 import java.math.BigDecimal;
 
-@Data
-public class ProviderDto {
-    private Long id;
-
-    private String name;
-
-    private String deptCode;
-
-    private String payCode;
-
-    private Integer maxThreads;
-
-    private BigDecimal minAmount;
-
-    private BigDecimal maxAmount;
-
-    private boolean active;
-}
+@Builder
+public record ProviderDto(
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY) Long id,
+    @NotBlank String name,
+    @NotBlank String deptCode,
+    @NotBlank String payCode,
+    @NotBlank Integer maxThreads,
+    @NotBlank BigDecimal minAmount,
+    @NotBlank BigDecimal maxAmount,
+    @NotBlank boolean active,
+    @NotBlank Long providerGroupId
+){}

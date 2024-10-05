@@ -1,9 +1,6 @@
 package ge.bog.sst_service.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -28,5 +25,9 @@ public class Provider {
     private BigDecimal maxAmount;
 
     private boolean active;
+
+    @ManyToOne
+    @JoinColumn(name = "provider_group_id")
+    private ProviderGroup providerGroup;
 }
 
