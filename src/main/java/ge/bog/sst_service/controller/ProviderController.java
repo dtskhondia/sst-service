@@ -37,8 +37,7 @@ public class ProviderController {
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Create Provider",
-            content = { @Content( mediaType = "application/json") }
+            description = "Failed to Create Provider"
         )
     })
     @PostMapping()
@@ -49,22 +48,21 @@ public class ProviderController {
         return providerMapper.map(providerService.create(providerMapper.map(providerDto)));
     }
 
-    @Operation(summary = "Find Provider by Id")
+    @Operation(summary = "Find Provider By Id")
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
             description = "Provider Found",
             content = {
-                    @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProviderDto.class)
-                    )
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ProviderDto.class)
+                )
             }
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Provider Not Found",
-            content = {@Content(mediaType = "application/json")}
+            description = "Provider Not Found"
         )
     })
     @GetMapping("/{id}")
@@ -79,22 +77,21 @@ public class ProviderController {
         return providerDto;
     }
 
-    @Operation(summary = "Update Provider by Id")
+    @Operation(summary = "Update Provider By Id")
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
             description = "Provider Updated",
             content = {
-                    @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProviderDto.class)
-                    )
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = ProviderDto.class)
+                )
             }
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Update Provider",
-            content = {@Content(mediaType = "application/json")}
+            description = "Failed to Update Provider"
         )
     })
     @PutMapping("/{id}")
@@ -111,13 +108,11 @@ public class ProviderController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Provider Deleted",
-            content = {@Content(mediaType = "application/json")}
+            description = "Provider Deleted"
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Delete Provider",
-            content = {@Content(mediaType = "application/json")}
+            description = "Failed to Delete Provider"
         )
     })
     @DeleteMapping("/{id}")

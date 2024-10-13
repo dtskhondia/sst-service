@@ -24,7 +24,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     public Provider update(Long id, Provider provider) {
-        //provider.setId(id);  // TODO: check if mannual is ok
+        provider.setId(id);  // TODO: check if mannual is ok
         return providerRepository.save(provider);
     }
 

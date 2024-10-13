@@ -5,6 +5,7 @@ import ge.bog.sst_service.domain.Provider;
 import ge.bog.sst_service.dto.ProviderDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(uses = ProviderGroupMapper.class)
 public interface ProviderMapper {
@@ -14,4 +15,15 @@ public interface ProviderMapper {
     @Mapping(target = "providerGroupId", source = "providerGroup.id")
     ProviderDto map(Provider provider);
 
+    @Named("providerToId")
+    public static Long providerToId(Provider provider){
+        return  provider.getId();
+    }
+
+    @Named("idToProvider")
+    public static Provider idToProvider(Long id){
+        Provider provider = new Provider();
+        provider.setId(id);
+        return provider;
+    }
 }

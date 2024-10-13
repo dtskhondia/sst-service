@@ -35,6 +35,8 @@ public class ProviderGroupServiceImpl implements ProviderGroupService {
 
     @Override
     public ProviderGroup update(Long id, ProviderGroup providerGroup) {
+        //TODO: better version ?
+        providerGroup.setId(id);
         return providerGroupRepository.save(providerGroup);
     }
 

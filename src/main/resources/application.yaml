@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: sst-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sstdb
+    username: sst
+    password: sst
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: create
+    open-in-view: false

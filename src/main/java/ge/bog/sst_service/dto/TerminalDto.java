@@ -1,20 +1,22 @@
 package ge.bog.sst_service.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ge.bog.sst_service.domain.Address;
+import ge.bog.sst_service.domain.Provider;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import java.math.BigDecimal;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
-public record ProviderDto(
+public record TerminalDto(
     @JsonProperty(access = JsonProperty.Access.READ_ONLY) Long id,
-    @NotBlank String name,
-    @NotBlank String deptCode,
-    @NotBlank String payCode,
-    @NotNull Integer maxThreads,
-    @NotNull BigDecimal minAmount,
-    @NotNull BigDecimal maxAmount,
+    AddressDto address,
     @NotNull boolean active,
-    @NotNull Long providerGroupId
-){}
+    @NotNull LocalDateTime lastAccessTime,
+    List<Long> availableProviderIds
+) {
+}

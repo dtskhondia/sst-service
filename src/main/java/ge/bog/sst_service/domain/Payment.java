@@ -3,6 +3,7 @@ package ge.bog.sst_service.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+//TODO: property validations must be here or only in DTO ?
 public class Payment {
 
     private Long id;

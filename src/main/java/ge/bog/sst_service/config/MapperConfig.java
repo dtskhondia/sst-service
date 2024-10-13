@@ -1,7 +1,6 @@
 package ge.bog.sst_service.config;
 
-import ge.bog.sst_service.mapper.ProviderGroupMapper;
-import ge.bog.sst_service.mapper.ProviderMapper;
+import ge.bog.sst_service.mapper.*;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,4 +16,10 @@ public class MapperConfig {
     public ProviderGroupMapper providerGroupMapper() {
         return Mappers.getMapper( ProviderGroupMapper.class);
     }
+
+    @Bean
+    public TerminalMapper terminalMapper() { return Mappers.getMapper(TerminalMapper.class); }
+
+    @Bean
+    public AddressMapper addressMapper() { return Mappers.getMapper(AddressMapper.class); }
 }
