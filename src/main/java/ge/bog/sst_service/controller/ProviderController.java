@@ -27,17 +27,12 @@ public class ProviderController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Provider Created",
-            content = {
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ProviderDto.class)
-                )
-            }
+            description = "Provider Created"
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Create Provider"
+            description = "Failed to Create Provider",
+            content = {}
         )
     })
     @PostMapping()
@@ -52,17 +47,12 @@ public class ProviderController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Provider Found",
-            content = {
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ProviderDto.class)
-                )
-            }
+            description = "Provider Found"
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Provider Not Found"
+            description = "Provider Not Found",
+            content = {}
         )
     })
     @GetMapping("/{id}")
@@ -81,17 +71,12 @@ public class ProviderController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Provider Updated",
-            content = {
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ProviderDto.class)
-                )
-            }
+            description = "Provider Updated"
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Update Provider"
+            description = "Failed to Update Provider",
+            content = {}
         )
     })
     @PutMapping("/{id}")
@@ -108,11 +93,13 @@ public class ProviderController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Provider Deleted"
+            description = "Provider Deleted",
+            content = {}
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Delete Provider"
+            description = "Failed to Delete Provider",
+            content = {}
         )
     })
     @DeleteMapping("/{id}")

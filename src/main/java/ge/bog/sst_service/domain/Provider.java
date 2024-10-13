@@ -26,7 +26,7 @@ public class Provider {
 
     private boolean active;
 
-    @ManyToOne(fetch = FetchType.EAGER) //TODO: should this be eager
+    @ManyToOne(fetch = FetchType.EAGER) //TODO: should this be eager ?
     @JoinColumn(name = "provider_group_id")
     private ProviderGroup providerGroup;
 }

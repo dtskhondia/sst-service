@@ -16,12 +16,12 @@ public interface ProviderMapper {
     ProviderDto map(Provider provider);
 
     @Named("providerToId")
-    public static Long providerToId(Provider provider){
+    static Long providerToId(Provider provider){
         return  provider.getId();
     }
 
     @Named("idToProvider")
-    public static Provider idToProvider(Long id){
+    static Provider idToProvider(Long id){
         Provider provider = new Provider();
         provider.setId(id);
         return provider;

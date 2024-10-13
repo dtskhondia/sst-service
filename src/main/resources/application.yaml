@@ -11,3 +11,6 @@ spring:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: create
     open-in-view: false
+
+springdoc:
+  default-produces-media-type: application/json

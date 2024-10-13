@@ -22,4 +22,7 @@ public class MapperConfig {
 
     @Bean
     public AddressMapper addressMapper() { return Mappers.getMapper(AddressMapper.class); }
+
+    @Bean
+    public PaymentMapper paymentMapper() { return Mappers.getMapper(PaymentMapper.class); }
 }

@@ -1,13 +1,11 @@
 package ge.bog.sst_service.controller;
 
-import ge.bog.sst_service.dto.ProviderDto;
 import ge.bog.sst_service.dto.ProviderGroupDto;
 import ge.bog.sst_service.mapper.ProviderGroupMapper;
 import ge.bog.sst_service.service.ProviderGroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
@@ -28,18 +26,12 @@ public class ProviderGroupController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "201",
-            description = "Created",
-            content = {
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = ProviderGroupDto.class)
-                )
-            }
+            description = "Provider Group Created"
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Create",
-            content = { @Content( mediaType = "application/json") }
+            description = "Failed to Create Provider Group",
+            content = {}
         )
     })
     @PostMapping()
@@ -54,18 +46,12 @@ public class ProviderGroupController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Found",
-            content = {
-                    @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProviderGroupDto.class)
-                    )
-            }
+            description = "Provider Group Found"
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Not Found",
-            content = {@Content(mediaType = "application/json")}
+            description = "Provide Group Not Found",
+            content = {}
         )
     })
     @GetMapping("/{id}")
@@ -84,18 +70,12 @@ public class ProviderGroupController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Provider Updated",
-            content = {
-                    @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ProviderDto.class)
-                    )
-            }
+            description = "Provider Updated"
         ),
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Update Provider",
-            content = {@Content(mediaType = "application/json")}
+            content = {}
         )
     })
     @PutMapping("/{id}")
@@ -113,12 +93,12 @@ public class ProviderGroupController {
         @ApiResponse(
             responseCode = "204",
             description = "Deleted",
-            content = {@Content(mediaType = "application/json")}
+            content = {}
         ),
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Delete",
-            content = {@Content(mediaType = "application/json")}
+            content = {}
         )
     })
     @DeleteMapping("/{id}")

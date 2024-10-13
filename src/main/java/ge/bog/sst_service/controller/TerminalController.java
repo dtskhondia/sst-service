@@ -1,11 +1,7 @@
 package ge.bog.sst_service.controller;
 
-import ge.bog.sst_service.domain.Provider;
-import ge.bog.sst_service.domain.Terminal;
 import ge.bog.sst_service.dto.TerminalDto;
-import ge.bog.sst_service.mapper.AddressMapper;
 import ge.bog.sst_service.mapper.TerminalMapper;
-import ge.bog.sst_service.service.ProviderService;
 import ge.bog.sst_service.service.TerminalService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -29,17 +25,12 @@ public class TerminalController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Terminal Created",
-            content = {
-                @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = TerminalDto.class)
-                )
-            }
+            description = "Terminal Created"
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed to Create Terminal"
+            description = "Failed to Create Terminal",
+            content = {}
         )
     })
     @PostMapping()
@@ -53,15 +44,12 @@ public class TerminalController {
     @ApiResponses( value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Terminal Found",
-            content = @Content(
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = TerminalDto.class)
-            )
+            description = "Terminal Found"
         ),
         @ApiResponse(
             responseCode = "404",
-            description = "Terminal Not Found"
+            description = "Terminal Not Found",
+            content = {}
         )
     })
     @GetMapping("/{id}")
@@ -76,15 +64,12 @@ public class TerminalController {
     @ApiResponses( value = {
         @ApiResponse(
             responseCode = "200",
-            description = "Terminal Updated",
-            content = @Content(
-                mediaType = "application/json",
-                schema = @Schema(implementation = TerminalDto.class)
-            )
+            description = "Terminal Updated"
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed To Update Terminal"
+            description = "Failed To Update Terminal",
+            content = {}
         )
     })
     @PutMapping("/{id}")
@@ -101,11 +86,13 @@ public class TerminalController {
     @ApiResponses(value = {
         @ApiResponse(
             responseCode = "204",
-            description = "Terminal Deleted"
+            description = "Terminal Deleted",
+            content = {}
         ),
         @ApiResponse(
             responseCode = "400",
-            description = "Failed To Delete Terminal"
+            description = "Failed To Delete Terminal",
+            content = {}
         )
     })
     @DeleteMapping("/{id}")
