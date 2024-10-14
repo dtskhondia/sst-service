@@ -31,6 +31,7 @@ public class Payment {
     private BigDecimal amount;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private PaymentStatus status;
 
     @NotNull

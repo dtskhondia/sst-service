@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Primary
 public class ProviderServiceImpl implements ProviderService {
@@ -31,5 +33,10 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public void delete(Long id) {
         providerRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Provider> findAllByActive(Boolean active) {
+        return providerRepository.findAllByActive(active);
     }
 }
