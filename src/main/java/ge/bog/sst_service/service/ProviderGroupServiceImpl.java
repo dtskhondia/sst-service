@@ -3,22 +3,36 @@ package ge.bog.sst_service.service;
 import ge.bog.sst_service.domain.Provider;
 import ge.bog.sst_service.domain.ProviderGroup;
 import ge.bog.sst_service.repository.ProviderGroupRepository;
-import ge.bog.sst_service.repository.ProviderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
+@RequiredArgsConstructor
+@Transactional //TODO: how this works add for detached products
 public class ProviderGroupServiceImpl implements ProviderGroupService {
-    @Autowired
-    ProviderGroupRepository providerGroupRepository;
+    private final ProviderGroupRepository providerGroupRepository;
+    private final ProviderService providerService;
 
     @Override
     public ProviderGroup create(ProviderGroup providerGroup) {
-        for(Provider provider : providerGroup.getProviders()){
+        List<Provider> providerList = providerService.findAllByIdIn(
+            providerGroup.getProviders()
+                .stream()
+                .map(Provider::getId)
+                .collect(Collectors.toList())
+        );
+
+        for(Provider provider : providerList){
             provider.setProviderGroup(providerGroup);
         }
+
+        providerGroup.setProviders(providerList);
 
         return providerGroupRepository.save(providerGroup);
     }
@@ -30,8 +44,7 @@ public class ProviderGroupServiceImpl implements ProviderGroupService {
 
     @Override
     public ProviderGroup update(Long id, ProviderGroup providerGroup) {
-        //TODO: better version ?
-        providerGroup.setId(id);
+        providerGroup.setId(id); //TODO: better version ?
         return providerGroupRepository.save(providerGroup);
     }
 

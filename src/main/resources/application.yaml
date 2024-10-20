@@ -6,6 +6,9 @@ spring:
     username: sst
     password: sst
     driver-class-name: org.postgresql.Driver
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/sstlogdb
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect

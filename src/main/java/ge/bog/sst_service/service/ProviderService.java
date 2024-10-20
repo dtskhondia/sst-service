@@ -10,4 +10,5 @@ public interface ProviderService {
     Provider update(Long id, Provider provider);
     void delete(Long id);
     List<Provider> findAllByActive(Boolean active);
+    List<Provider> findAllByIdIn(List<Long>ids);
 }

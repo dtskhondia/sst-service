@@ -19,6 +19,6 @@ public record PaymentDto(
     @NotNull Long providerId,
     @NotBlank String abonentCode,
     @NotNull BigDecimal amount,
-    @NotNull PaymentStatus status,
-    @NotNull LocalDateTime createTime
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY) PaymentStatus status,
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY) LocalDateTime createTime
 ){}

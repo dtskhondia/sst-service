@@ -40,7 +40,7 @@ public class ProviderJob {
         scheduledExecutorService.scheduleAtFixedRate(
             providerProcessor,
             1,
-            5,
+            30,
             TimeUnit.SECONDS
         );
     }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
     List<Provider> findAllByActive(Boolean active);
+    List<Provider> findAllByIdIn(List<Long> providers);
 }

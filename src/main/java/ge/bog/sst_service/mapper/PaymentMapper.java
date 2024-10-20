@@ -9,6 +9,8 @@ import org.mapstruct.Mapping;
 public interface PaymentMapper {
     @Mapping(source = "providerId", target = "provider.id")
     @Mapping(source = "terminalId", target = "terminal.id")
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "createTime", ignore = true)
     Payment map(PaymentDto paymentDto);
 
     @Mapping(source = "provider.id", target = "providerId")
