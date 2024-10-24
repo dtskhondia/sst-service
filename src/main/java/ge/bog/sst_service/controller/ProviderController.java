@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +53,7 @@ public class ProviderController {
         @ApiResponse(
             responseCode = "404",
             description = "Provider Not Found",
-            content = {}
+            content = {@Content(schema = @Schema(implementation = ErrorMessage.class))}
         )
     })
     @GetMapping("/{id}")

@@ -1,6 +1,7 @@
 package ge.bog.sst_service.service;
 
 import ge.bog.sst_service.domain.Terminal;
+import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.repository.TerminalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -19,7 +20,10 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Override
     public Terminal findById(Long id) {
-        return terminalRepository.getById(id);
+        Terminal terminal = terminalRepository.getById(id);
+        if(terminal == null)
+            throw new ResourceNotFoundException("Terminal With Id " + id + " Not Found");
+        return terminal;
     }
 
     @Override

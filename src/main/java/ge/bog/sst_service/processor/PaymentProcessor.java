@@ -26,7 +26,6 @@ public class PaymentProcessor implements Runnable{
     private void processPayment(Payment payment){
         if(payment.getStatus().equals(CREATED)){
             payment.setStatus(PENDING);
-            // TODO: move validator to Payment class ?
             if(!payment.isValidAmount()){
                 payment.setStatus(REJECTED);
                 paymentService.update(payment.getId(), payment);

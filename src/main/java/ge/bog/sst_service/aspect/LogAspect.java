@@ -19,14 +19,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class LogAspect {
     private final LogService logService;
 
-    @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
-    public void restControllerPointcut() {
-        // Method is empty as this is just a Pointcut, the implementations are in the advices.
-    }
+    @Pointcut("execution(* ge.bog.sst_service.controller.*Controller.*(..))")
+    public void restControllerPointcut() {}
 
     @Around("restControllerPointcut()")
     public Object logRequestResponse(ProceedingJoinPoint joinPoint) throws Throwable {
-        System.out.println("log...........");
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();

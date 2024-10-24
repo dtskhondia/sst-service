@@ -2,6 +2,7 @@ package ge.bog.sst_service.service;
 
 import ge.bog.sst_service.domain.Provider;
 import ge.bog.sst_service.domain.ProviderGroup;
+import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.repository.ProviderGroupRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -39,7 +40,10 @@ public class ProviderGroupServiceImpl implements ProviderGroupService {
 
     @Override
     public ProviderGroup findById(Long id) {
-        return providerGroupRepository.getById(id);
+        ProviderGroup providerGroup = providerGroupRepository.getById(id);
+        if(providerGroup == null)
+            throw new ResourceNotFoundException("Provider Group With Id " + id + " Not Found");
+        return providerGroup;
     }
 
     @Override

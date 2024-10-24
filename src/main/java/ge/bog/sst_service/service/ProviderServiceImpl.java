@@ -1,6 +1,7 @@
 package ge.bog.sst_service.service;
 
 import ge.bog.sst_service.domain.Provider;
+import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.repository.ProviderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     public Provider findById(Long id) {
-        return providerRepository.findById(id).orElseThrow();
+        return providerRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Provide With Id " + id + "Not Found"));
     }
 
     @Override
