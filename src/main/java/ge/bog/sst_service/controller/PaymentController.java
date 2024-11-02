@@ -1,7 +1,8 @@
 package ge.bog.sst_service.controller;
 
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
-import ge.bog.sst_service.dto.PaymentDto;
+import ge.bog.sst_service.dto.PaymentReadDto;
+import ge.bog.sst_service.dto.PaymentWriteDto;
 import ge.bog.sst_service.mapper.PaymentMapper;
 import ge.bog.sst_service.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,11 +36,11 @@ public class PaymentController {
         )
     })
     @PostMapping()
-    PaymentDto create(
+    PaymentReadDto create(
         @Parameter(description = "Payment To Be Created")
-        @RequestBody @Valid PaymentDto paymentDto
+        @RequestBody @Valid PaymentWriteDto paymentWriteDto
     ){
-        return paymentMapper.map(paymentService.create(paymentMapper.map(paymentDto)));
+        return paymentMapper.map(paymentService.create(paymentMapper.map(paymentWriteDto)));
     }
 
     @Operation(summary = "Find Payment By Id")
@@ -55,7 +56,7 @@ public class PaymentController {
         )
     })
     @GetMapping("/{id}")
-    PaymentDto findById(
+    PaymentReadDto findById(
         @Parameter(name="id", description = "Payment Id", example = "1")
         @PathVariable Long id
     ){
@@ -75,13 +76,13 @@ public class PaymentController {
         )
     })
     @PutMapping("/{id}")
-    PaymentDto update(
+    PaymentReadDto update(
         @Parameter(name="id", description = "Payment Id", example = "1")
         @PathVariable Long id,
         @Parameter(description = "Payment To Be Updated")
-        @RequestBody @Valid PaymentDto paymentDto
+        @RequestBody @Valid PaymentWriteDto paymentWriteDto
     ){
-        return paymentMapper.map(paymentService.update(id, paymentMapper.map(paymentDto)));
+        return paymentMapper.map(paymentService.update(id, paymentMapper.map(paymentWriteDto)));
     }
 
     @Operation(summary = "Delete Payment By Id")

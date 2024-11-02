@@ -1,7 +1,8 @@
 package ge.bog.sst_service.mapper;
 
 import ge.bog.sst_service.domain.Payment;
-import ge.bog.sst_service.dto.PaymentDto;
+import ge.bog.sst_service.dto.PaymentReadDto;
+import ge.bog.sst_service.dto.PaymentWriteDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -11,9 +12,7 @@ public interface PaymentMapper {
     @Mapping(source = "terminalId", target = "terminal.id")
     @Mapping(target = "status", ignore = true)
     @Mapping(target = "createTime", ignore = true)
-    Payment map(PaymentDto paymentDto);
+    Payment map(PaymentWriteDto paymentWriteDto);
 
-    @Mapping(source = "provider.id", target = "providerId")
-    @Mapping(source = "terminal.id", target = "terminalId")
-    PaymentDto map(Payment payment);
+    PaymentReadDto map(Payment payment);
 }
