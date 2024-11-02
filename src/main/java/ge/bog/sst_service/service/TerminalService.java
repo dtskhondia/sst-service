@@ -1,5 +1,6 @@
 package ge.bog.sst_service.service;
 
+
 import ge.bog.sst_service.domain.Terminal;
 
 public interface TerminalService {
@@ -7,4 +8,5 @@ public interface TerminalService {
     Terminal findById(Long id);
     Terminal update(Long id, Terminal terminal);
     void delete(Long id);
+    boolean existsById(Long id);
 }

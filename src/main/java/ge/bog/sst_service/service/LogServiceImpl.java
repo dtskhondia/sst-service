@@ -1,16 +1,13 @@
 package ge.bog.sst_service.service;
 
-import ge.bog.sst_service.entity.Log;
+import ge.bog.sst_service.entity.LogEntity;
 import ge.bog.sst_service.repository.LogRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Date;
 
 @Service
@@ -20,29 +17,29 @@ public class LogServiceImpl implements LogService {
     private final LogRepository logRepository;
 
     @Override
-    public Log logRequest(HttpServletRequest httpServletRequest) {
-        Log log = new Log();
-        log.setMethod(httpServletRequest.getMethod());
-        log.setUri(httpServletRequest.getRequestURI());
-        log.setRequestBody(httpServletRequest.getParameterMap().toString());
-        log.setLogTime(new Date());
-        return logRepository.save(log);
+    public LogEntity logRequest(HttpServletRequest httpServletRequest) {
+        LogEntity logEntity = new LogEntity();
+        logEntity.setMethod(httpServletRequest.getMethod());
+        logEntity.setUri(httpServletRequest.getRequestURI());
+        logEntity.setRequestBody(httpServletRequest.getParameterMap().toString());
+        logEntity.setLogTime(new Date());
+        return logRepository.save(logEntity);
     }
 
     @Override
-    public Log logResponse(Log log, HttpServletResponse httpServletResponse, Object result) {
-        log.setResponseBody(result.toString());
-        return logRepository.save(log);
+    public LogEntity logResponse(LogEntity logEntity, HttpServletResponse httpServletResponse, Object result) {
+        logEntity.setResponseBody(result.toString());
+        return logRepository.save(logEntity);
     }
 
-    public Log logError(HttpServletRequest request, HttpServletResponse response, Exception e) {
-        Log log = new Log();
-        log.setMethod(request.getMethod());
-        log.setUri(request.getRequestURI());
-        log.setRequestBody(request.getParameterMap().toString());
-        log.setResponseBody("Error: " + e.getMessage());
-        log.setLogTime(new Date());
+    public LogEntity logError(HttpServletRequest request, HttpServletResponse response, Exception e) {
+        LogEntity logEntity = new LogEntity();
+        logEntity.setMethod(request.getMethod());
+        logEntity.setUri(request.getRequestURI());
+        logEntity.setRequestBody(request.getParameterMap().toString());
+        logEntity.setResponseBody("Error: " + e.getMessage());
+        logEntity.setLogTime(new Date());
 
-        return logRepository.save(log);
+        return logRepository.save(logEntity);
     }
 }

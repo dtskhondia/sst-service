@@ -1,5 +1,6 @@
 package ge.bog.sst_service.domain;
 
+import ge.bog.sst_service.entity.TerminalEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,8 +13,9 @@ import java.time.LocalDateTime;
 import static ge.bog.sst_service.domain.PaymentStatus.CREATED;
 
 //TODO: property validations must be here or only in DTO ?
-@Entity
 @Data
+@Entity
+@Table(name="payments")
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class Payment {
     //TODO: should be saved as REJECTED if terminal does not exists ?
     @ManyToOne
     @JoinColumn(name = "terminal_id")
-    private Terminal terminal;
+    private TerminalEntity terminal;
 
     @ManyToOne
     @JoinColumn(name = "provider_id")

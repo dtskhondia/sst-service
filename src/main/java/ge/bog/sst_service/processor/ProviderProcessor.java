@@ -3,15 +3,12 @@ package ge.bog.sst_service.processor;
 import ge.bog.sst_service.domain.Payment;
 import ge.bog.sst_service.domain.Provider;
 import ge.bog.sst_service.service.PaymentService;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static ge.bog.sst_service.domain.PaymentStatus.CREATED;
 

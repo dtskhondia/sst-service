@@ -1,13 +1,11 @@
 package ge.bog.sst_service.job;
 
-import ge.bog.sst_service.domain.Payment;
 import ge.bog.sst_service.domain.Provider;
 import ge.bog.sst_service.processor.ProviderProcessor;
 import ge.bog.sst_service.service.PaymentService;
 import ge.bog.sst_service.service.ProviderService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,11 +15,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@RequiredArgsConstructor
 public class ProviderJob {
-    @Autowired
-    private PaymentService paymentService;
-    @Autowired
-    private ProviderService providerService;
+    private final PaymentService paymentService;
+    private final ProviderService providerService;
 
     @PostConstruct
     private void postConstruct(){
@@ -32,6 +29,7 @@ public class ProviderJob {
     }
 
     private void scheduleProvider(Provider provider){
+        if(provider.getMaxThreads() == 0) return;
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         ExecutorService executorService = Executors.newFixedThreadPool(provider.getMaxThreads());
         //TODO: inject paymentService in Constructor

@@ -1,6 +1,7 @@
 package ge.bog.sst_service.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ge.bog.sst_service.domain.ProviderGroup;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -15,6 +16,5 @@ public record ProviderDto(
     @NotNull Integer maxThreads,
     @NotNull BigDecimal minAmount,
     @NotNull BigDecimal maxAmount,
-    @NotNull boolean active,
-    @NotNull Long providerGroupId
+    @NotNull boolean active
 ){}

@@ -40,9 +40,12 @@ public class ProviderGroupServiceImpl implements ProviderGroupService {
 
     @Override
     public ProviderGroup findById(Long id) {
-        ProviderGroup providerGroup = providerGroupRepository.getById(id);
-        if(providerGroup == null)
-            throw new ResourceNotFoundException("Provider Group With Id " + id + " Not Found");
+        ProviderGroup providerGroup = providerGroupRepository.findById(id).orElseThrow(
+            ()-> new ResourceNotFoundException("Provider Group With Id " + id + " Not Found")
+        );
+
+        List<Provider> providers = providerService.findAllByProviderGroupId(providerGroup.getId());
+        providerGroup.setProviders(providers);
         return providerGroup;
     }
 

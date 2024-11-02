@@ -13,4 +13,5 @@ public interface PaymentService {
     void delete(Long id);
     List<Payment> findAllByStatus(PaymentStatus status);
     List<Payment> findAllByStatusAndProvider(PaymentStatus status, Provider provider);
+    void processPayment(Payment payment);
 }

@@ -5,8 +5,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
-@Entity
 @Data
+@Entity
+@Table(name="providers")
 public class Provider {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

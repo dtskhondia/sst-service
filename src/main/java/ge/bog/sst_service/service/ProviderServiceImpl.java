@@ -47,4 +47,9 @@ public class ProviderServiceImpl implements ProviderService {
         return providerRepository.findAllByIdIn(ids);
     }
 
+    @Override
+    public List<Provider> findAllByProviderGroupId(Long providerGroupId) {
+        return providerRepository.findAllByProviderGroupId(providerGroupId);
+    }
+
 }

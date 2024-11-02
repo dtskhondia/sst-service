@@ -10,6 +10,6 @@ public interface ProviderGroupMapper {
     @Mapping(target = "providers", source = "providerIds", qualifiedByName = "idToProvider")
     ProviderGroup map(ProviderGroupDto providerGroupDto);
 
-    @Mapping(target = "providerIds", source = "providers", qualifiedByName = "providerToId")
+    @Mapping(target = "providerIds", ignore = true)
     ProviderGroupDto map(ProviderGroup providerGroup);
 }

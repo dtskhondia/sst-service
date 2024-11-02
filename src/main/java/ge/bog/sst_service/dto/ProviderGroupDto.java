@@ -11,5 +11,8 @@ public record ProviderGroupDto(
     @JsonProperty(access = JsonProperty.Access.READ_ONLY) Long id,
     @NotBlank String name,
     @NotBlank String description,
-    List<Long> providerIds
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    List<Long> providerIds,
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    List<ProviderDto> providers
 ){}

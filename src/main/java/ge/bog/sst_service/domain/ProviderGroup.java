@@ -6,8 +6,9 @@ import lombok.Data;
 
 import java.util.List;
 
-@Entity
 @Data
+@Entity
+@Table(name="provider_groups")
 public class ProviderGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

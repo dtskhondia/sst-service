@@ -1,15 +1,19 @@
-package ge.bog.sst_service.domain;
+package ge.bog.sst_service.entity;
 
+import ge.bog.sst_service.domain.Address;
+import ge.bog.sst_service.domain.Provider;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
-public class Terminal {
-    @NotNull
+@Entity
+@Table(name="terminals")
+public class TerminalEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Embedded
@@ -20,7 +24,5 @@ public class Terminal {
 
     @NotNull
     private LocalDateTime lastAccessTime;
-
-    private List<Provider> availableProviders;
 }
 

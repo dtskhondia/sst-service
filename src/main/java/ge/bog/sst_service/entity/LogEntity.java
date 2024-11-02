@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Document(collection = "logs")
 @Data
-public class Log {
+public class LogEntity {
     @Id
     private String id;
     private String method;

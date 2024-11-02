@@ -9,10 +9,9 @@ import org.mapstruct.Named;
 
 @Mapper(uses = ProviderGroupMapper.class)
 public interface ProviderMapper {
-    @Mapping(target = "providerGroup.id", source = "providerGroupId")
+    @Mapping(target = "providerGroup", ignore = true)
     Provider map(ProviderDto providerDto);
 
-    @Mapping(target = "providerGroupId", source = "providerGroup.id")
     ProviderDto map(Provider provider);
 
     @Named("providerToId")

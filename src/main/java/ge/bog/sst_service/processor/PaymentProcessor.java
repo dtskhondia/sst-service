@@ -1,7 +1,6 @@
 package ge.bog.sst_service.processor;
 
 import ge.bog.sst_service.domain.Payment;
-import ge.bog.sst_service.domain.PaymentStatus;
 import ge.bog.sst_service.service.PaymentService;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -22,25 +21,9 @@ public class PaymentProcessor implements Runnable{
         processPayment(payment);
     }
 
-    // TODO: handle same payment not to be processed 2 times
     private void processPayment(Payment payment){
         if(payment.getStatus().equals(CREATED)){
-            payment.setStatus(PENDING);
-            if(!payment.isValidAmount()){
-                payment.setStatus(REJECTED);
-                paymentService.update(payment.getId(), payment);
-                return;
-            }
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                payment.setStatus(REJECTED);
-                paymentService.update(payment.getId(), payment);
-            }
-
-            payment.setStatus(PERFORMED);
-            paymentService.update(payment.getId(),payment);
+            paymentService.processPayment(payment);
         }
     }
 }

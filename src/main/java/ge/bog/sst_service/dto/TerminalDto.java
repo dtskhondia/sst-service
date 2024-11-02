@@ -1,10 +1,6 @@
 package ge.bog.sst_service.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ge.bog.sst_service.domain.Address;
-import ge.bog.sst_service.domain.Provider;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
@@ -17,5 +13,6 @@ public record TerminalDto(
     AddressDto address,
     @NotNull boolean active,
     @NotNull LocalDateTime lastAccessTime,
-    List<Long> availableProviderIds
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    List<ProviderDto> availableProviders
 ){}

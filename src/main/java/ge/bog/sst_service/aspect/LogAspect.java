@@ -1,6 +1,6 @@
 package ge.bog.sst_service.aspect;
 
-import ge.bog.sst_service.entity.Log;
+import ge.bog.sst_service.entity.LogEntity;
 import ge.bog.sst_service.service.LogService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,11 +28,11 @@ public class LogAspect {
 
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
 
-        Log log = logService.logRequest(request);
+        LogEntity logEntity = logService.logRequest(request);
 
         try {
             Object result = joinPoint.proceed();
-            logService.logResponse(log, response, result);
+            logService.logResponse(logEntity, response, result);
             return result;
         } catch (Exception e) {
             logService.logError(request, response, e);

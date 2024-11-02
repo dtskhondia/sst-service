@@ -1,6 +1,8 @@
 package ge.bog.sst_service.exception;
 
-public class ResourceNotFoundException extends RuntimeException{
+import java.util.function.Supplier;
+
+public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String message){
         super(message);
     }
