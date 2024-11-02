@@ -3,6 +3,7 @@ package ge.bog.sst_service.processor;
 import ge.bog.sst_service.domain.Payment;
 import ge.bog.sst_service.domain.Provider;
 import ge.bog.sst_service.service.PaymentService;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,9 @@ import java.util.concurrent.ExecutorService;
 import static ge.bog.sst_service.domain.PaymentStatus.CREATED;
 
 @Service
-@NoArgsConstructor(force = true) //TODO: is force good practice
+@NoArgsConstructor(force = true)
 @RequiredArgsConstructor
+@Builder
 public class ProviderProcessor implements Runnable {
     private final Provider provider;
     private final ExecutorService executorService;

@@ -10,7 +10,7 @@ import static ge.bog.sst_service.domain.PaymentStatus.*;
 
 @Service
 @RequiredArgsConstructor
-@NoArgsConstructor(force = true) //TODO: is force good practice
+@NoArgsConstructor(force = true)
 public class PaymentProcessor implements Runnable{
     private final Payment payment;
     private final PaymentService paymentService;

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 import static ge.bog.sst_service.domain.PaymentStatus.CREATED;
 
-//TODO: property validations must be here or only in DTO ?
 @Data
 @Entity
 @Table(name="payments")
@@ -21,7 +20,6 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //TODO: should be saved as REJECTED if terminal does not exists ?
     @ManyToOne
     @JoinColumn(name = "terminal_id")
     private TerminalEntity terminal;
@@ -41,7 +39,6 @@ public class Payment {
 
     private LocalDateTime createTime;
 
-    //TODO: better option to set default value?
     @PrePersist
     public void prePersist(){
         if(status == null) status = CREATED;
@@ -49,7 +46,6 @@ public class Payment {
     }
 
     public Boolean isValidAmount(){
-        return provider.getMinAmount().compareTo(amount) <= 0 &&
-               provider.getMaxAmount().compareTo(amount) >= 0;
+        return provider.isAmountInRange(amount);
     }
 }

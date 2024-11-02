@@ -30,5 +30,9 @@ public class Provider {
     @ManyToOne(fetch = FetchType.EAGER) //TODO: should this be eager ?
     @JoinColumn(name = "provider_group_id")
     private ProviderGroup providerGroup;
+
+    public Boolean isAmountInRange(BigDecimal amount){
+        return minAmount.compareTo(amount) <= 0 && maxAmount.compareTo(amount) >= 0;
+    }
 }
 

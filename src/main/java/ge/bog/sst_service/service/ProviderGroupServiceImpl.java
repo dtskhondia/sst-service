@@ -15,12 +15,13 @@ import java.util.stream.Collectors;
 @Service
 @Primary
 @RequiredArgsConstructor
-@Transactional //TODO: how this works add for detached products
 public class ProviderGroupServiceImpl implements ProviderGroupService {
     private final ProviderGroupRepository providerGroupRepository;
     private final ProviderService providerService;
 
     @Override
+
+    @Transactional
     public ProviderGroup create(ProviderGroup providerGroup) {
         List<Provider> providerList = providerService.findAllByIdIn(
             providerGroup.getProviders()
@@ -51,7 +52,7 @@ public class ProviderGroupServiceImpl implements ProviderGroupService {
 
     @Override
     public ProviderGroup update(Long id, ProviderGroup providerGroup) {
-        providerGroup.setId(id); //TODO: better version ?
+        providerGroup.setId(id);
         return providerGroupRepository.save(providerGroup);
     }
 

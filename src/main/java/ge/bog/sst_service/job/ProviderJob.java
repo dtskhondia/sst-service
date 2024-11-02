@@ -30,10 +30,15 @@ public class ProviderJob {
 
     private void scheduleProvider(Provider provider){
         if(provider.getMaxThreads() == 0) return;
+
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         ExecutorService executorService = Executors.newFixedThreadPool(provider.getMaxThreads());
-        //TODO: inject paymentService in Constructor
-        ProviderProcessor providerProcessor = new ProviderProcessor(provider, executorService, paymentService);
+
+        ProviderProcessor providerProcessor = ProviderProcessor.builder()
+            .provider(provider)
+            .executorService(executorService)
+            .paymentService(paymentService)
+            .build();
 
         scheduledExecutorService.scheduleAtFixedRate(
             providerProcessor,

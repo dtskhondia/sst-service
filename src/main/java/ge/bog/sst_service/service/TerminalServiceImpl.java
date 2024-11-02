@@ -41,7 +41,7 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Override
     public Terminal update(Long id, Terminal terminal) {
-        terminal.setId(id); // TODO: better version ?
+        terminal.setId(id);
         TerminalEntity terminalEntity = terminalMapper.mapToEntity(terminal);
         Terminal updatedTerminal = terminalMapper.mapToDomain(terminalRepository.save(terminalEntity));
         setAvailableProviders(updatedTerminal);
