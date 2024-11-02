@@ -22,7 +22,7 @@ public class ProviderJob {
 
     @PostConstruct
     private void postConstruct(){
-        List<Provider> providerList = providerService.findAllByActive(true);
+        List<Provider> providerList = providerService.findByActiveTrue();
         for(Provider provider: providerList){
             scheduleProvider(provider);
         }

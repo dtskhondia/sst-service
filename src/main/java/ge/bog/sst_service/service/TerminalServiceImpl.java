@@ -1,5 +1,6 @@
 package ge.bog.sst_service.service;
 
+import ge.bog.sst_service.domain.Provider;
 import ge.bog.sst_service.domain.Terminal;
 import ge.bog.sst_service.entity.TerminalEntity;
 import ge.bog.sst_service.exception.ResourceNotFoundException;
@@ -9,12 +10,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Primary
 @RequiredArgsConstructor
 public class TerminalServiceImpl implements TerminalService {
     private final TerminalRepository terminalRepository;
     private final TerminalMapper terminalMapper;
+    private final ProviderService providerService;
 
     @Override
     public Terminal create(Terminal terminal) {
@@ -27,7 +31,10 @@ public class TerminalServiceImpl implements TerminalService {
         TerminalEntity terminalEntity = terminalRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("Terminal With Id " + id + " Not Found")
         );
-        return terminalMapper.mapToDomain(terminalEntity);
+
+        Terminal terminal = terminalMapper.mapToDomain(terminalEntity);
+        terminal.setAvailableProviders(providerService.findByActiveTrue());
+        return terminal;
     }
 
     @Override

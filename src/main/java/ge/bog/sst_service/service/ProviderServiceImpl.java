@@ -38,8 +38,8 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
-    public List<Provider> findAllByActive(Boolean active) {
-        return providerRepository.findAllByActive(active);
+    public List<Provider> findByActiveTrue() {
+        return providerRepository.findByActiveTrue();
     }
 
     @Override

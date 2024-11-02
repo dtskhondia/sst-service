@@ -9,7 +9,7 @@ public interface ProviderService {
     Provider findById(Long id);
     Provider update(Long id, Provider provider);
     void delete(Long id);
-    List<Provider> findAllByActive(Boolean active);
+    List<Provider> findByActiveTrue();
     List<Provider> findAllByIdIn(List<Long>ids);
     List<Provider> findAllByProviderGroupId(Long providerGroupId);
 }
