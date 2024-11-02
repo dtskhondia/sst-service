@@ -22,5 +22,6 @@ public class Terminal {
     private LocalDateTime lastAccessTime;
 
     private List<Provider> availableProviders;
+
 }
 

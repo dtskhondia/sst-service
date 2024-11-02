@@ -23,7 +23,9 @@ public class TerminalServiceImpl implements TerminalService {
     @Override
     public Terminal create(Terminal terminal) {
         TerminalEntity terminalEntity = terminalMapper.mapToEntity(terminal);
-        return terminalMapper.mapToDomain(terminalRepository.save(terminalEntity));
+        Terminal newTerminal = terminalMapper.mapToDomain(terminalRepository.save(terminalEntity));
+        setAvailableProviders(newTerminal);
+        return newTerminal;
     }
 
     @Override
@@ -31,9 +33,9 @@ public class TerminalServiceImpl implements TerminalService {
         TerminalEntity terminalEntity = terminalRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("Terminal With Id " + id + " Not Found")
         );
-
         Terminal terminal = terminalMapper.mapToDomain(terminalEntity);
-        terminal.setAvailableProviders(providerService.findByActiveTrue());
+        setAvailableProviders(terminal);
+
         return terminal;
     }
 
@@ -41,7 +43,9 @@ public class TerminalServiceImpl implements TerminalService {
     public Terminal update(Long id, Terminal terminal) {
         terminal.setId(id); // TODO: better version ?
         TerminalEntity terminalEntity = terminalMapper.mapToEntity(terminal);
-        return terminalMapper.mapToDomain(terminalRepository.save(terminalEntity));
+        Terminal updatedTerminal = terminalMapper.mapToDomain(terminalRepository.save(terminalEntity));
+        setAvailableProviders(updatedTerminal);
+        return updatedTerminal;
     }
 
     @Override
@@ -52,5 +56,9 @@ public class TerminalServiceImpl implements TerminalService {
     @Override
     public boolean existsById(Long id){
         return terminalRepository.existsById(id);
+    }
+
+    private void setAvailableProviders(Terminal terminal){
+        terminal.setAvailableProviders(providerService.findByActiveTrue());
     }
 }
