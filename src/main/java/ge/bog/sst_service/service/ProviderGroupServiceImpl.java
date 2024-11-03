@@ -69,6 +69,12 @@ public class ProviderGroupServiceImpl implements ProviderGroupService {
 
         validateProviders(providerGroup.getProviders(), existingProviders);
 
+        ProviderGroup currentProviderGroup = findById(id);
+
+        for(Provider provider : currentProviderGroup.getProviders()){
+            provider.setProviderGroup(null);
+        }
+
         for(Provider provider : existingProviders){
             provider.setProviderGroup(providerGroup);
         }

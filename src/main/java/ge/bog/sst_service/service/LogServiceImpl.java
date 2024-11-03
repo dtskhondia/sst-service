@@ -9,7 +9,11 @@ import org.springdoc.api.ErrorMessage;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Service
 @Primary
@@ -18,11 +22,11 @@ public class LogServiceImpl implements LogService {
     private final LogRepository logRepository;
 
     @Override
-    public LogEntity logRequest(HttpServletRequest httpServletRequest) {
+    public LogEntity logRequest(HttpServletRequest httpServletRequest) throws IOException {
         LogEntity logEntity = LogEntity.builder()
             .method(httpServletRequest.getMethod())
             .uri(httpServletRequest.getRequestURI())
-            .requestBody(httpServletRequest.getParameterMap())
+            .requestBody(getRequestBody(httpServletRequest))
             .requestTime(new Date())
             .build();
         return logRepository.save(logEntity);
@@ -49,4 +53,13 @@ public class LogServiceImpl implements LogService {
         logEntity.setLogLevel("ERROR");
         logEntity.setResponseBody(ex.getMessage());
     }
+
+    public String getRequestBody(HttpServletRequest request) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(request.getInputStream()));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+        return sb.toString();    }
 }
