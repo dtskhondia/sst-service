@@ -2,6 +2,7 @@ package ge.bog.sst_service.controller;
 
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import ge.bog.sst_service.dto.ProviderDto;
+import ge.bog.sst_service.exception.ExceptionResponse;
 import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.mapper.ProviderMapper;
 import ge.bog.sst_service.service.ProviderService;
@@ -35,7 +36,7 @@ public class ProviderController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Create Provider",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @PostMapping()
@@ -79,7 +80,7 @@ public class ProviderController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Update Provider",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @PutMapping("/{id}")
@@ -102,7 +103,7 @@ public class ProviderController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Delete Provider",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @DeleteMapping("/{id}")

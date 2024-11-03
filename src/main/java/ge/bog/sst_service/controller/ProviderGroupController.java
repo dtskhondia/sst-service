@@ -2,6 +2,7 @@ package ge.bog.sst_service.controller;
 
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import ge.bog.sst_service.dto.ProviderGroupDto;
+import ge.bog.sst_service.exception.ExceptionResponse;
 import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.mapper.ProviderGroupMapper;
 import ge.bog.sst_service.service.ProviderGroupService;
@@ -36,7 +37,7 @@ public class ProviderGroupController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Create Provider Group",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @PostMapping()
@@ -80,7 +81,7 @@ public class ProviderGroupController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Update Provider",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @PutMapping("/{id}")
@@ -103,7 +104,7 @@ public class ProviderGroupController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Delete",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @DeleteMapping("/{id}")

@@ -43,7 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
             );
         }
 
-        if(payment.getProvider().getId() == null) {
+        if(payment.getProvider() == null) {
             throw new PaymentProviderNotFoundException(
                 "Payment Rejected. Provider Not Found"
             );

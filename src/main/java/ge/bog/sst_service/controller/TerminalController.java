@@ -2,6 +2,7 @@ package ge.bog.sst_service.controller;
 
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import ge.bog.sst_service.dto.TerminalDto;
+import ge.bog.sst_service.exception.ExceptionResponse;
 import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.mapper.TerminalMapper;
 import ge.bog.sst_service.service.TerminalService;
@@ -34,7 +35,7 @@ public class TerminalController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Create Terminal",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @PostMapping()
@@ -73,7 +74,7 @@ public class TerminalController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed To Update Terminal",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @PutMapping("/{id}")
@@ -96,7 +97,7 @@ public class TerminalController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed To Delete Terminal",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @DeleteMapping("/{id}")

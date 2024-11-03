@@ -3,6 +3,7 @@ package ge.bog.sst_service.controller;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import ge.bog.sst_service.dto.PaymentReadDto;
 import ge.bog.sst_service.dto.PaymentWriteDto;
+import ge.bog.sst_service.exception.ExceptionResponse;
 import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.mapper.PaymentMapper;
 import ge.bog.sst_service.service.PaymentService;
@@ -36,7 +37,7 @@ public class PaymentController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed To Create Payment",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @PostMapping()
@@ -76,7 +77,7 @@ public class PaymentController {
         @ApiResponse(
             responseCode = "400",
             description = "Payment Update Failed",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @PutMapping("/{id}")
@@ -99,7 +100,7 @@ public class PaymentController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed To Delete Payment",
-            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
+            content = @Content(schema = @Schema(implementation = ExceptionResponse.class ))
         )
     })
     @DeleteMapping("/{id}")
