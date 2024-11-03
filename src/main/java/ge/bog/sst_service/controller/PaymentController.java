@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.xml.sax.ErrorHandler;
 
@@ -102,10 +103,11 @@ public class PaymentController {
         )
     })
     @DeleteMapping("/{id}")
-    void delete(
+    ResponseEntity<Void> delete(
         @Parameter(name="id", description = "Payment Id", example = "1")
         @PathVariable Long id
     ){
         paymentService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

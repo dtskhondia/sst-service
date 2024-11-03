@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -106,10 +107,11 @@ public class ProviderGroupController {
         )
     })
     @DeleteMapping("/{id}")
-    void delete(
+    ResponseEntity<Void> delete(
         @Parameter(name = "id", description = "Provider Group Id", example = "1")
         @PathVariable Long id
     ){
         providerGroupService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

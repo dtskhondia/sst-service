@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.api.ErrorMessage;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -105,10 +106,11 @@ public class ProviderController {
         )
     })
     @DeleteMapping("/{id}")
-    void delete(
+    ResponseEntity<Void> delete(
         @Parameter(name = "id", description = "Provider Id", example = "1")
         @PathVariable Long id
     ){
         providerService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

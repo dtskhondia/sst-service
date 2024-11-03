@@ -105,7 +105,6 @@ public class TerminalController {
         @PathVariable Long id
     ){
         terminalService.delete(id);
-        //TODO: return 204 on every delete
         return ResponseEntity.noContent().build();
     }
 }
