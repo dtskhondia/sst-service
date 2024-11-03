@@ -1,6 +1,7 @@
 package ge.bog.sst_service.controller;
 
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
+import ge.bog.sst_service.dto.PaymentReadDto;
 import ge.bog.sst_service.dto.TerminalDto;
 import ge.bog.sst_service.exception.ExceptionResponse;
 import ge.bog.sst_service.exception.ResourceNotFoundException;

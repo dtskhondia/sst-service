@@ -9,4 +9,5 @@ public interface ProviderGroupService {
     ProviderGroup findById(Long id);
     ProviderGroup update(Long id, ProviderGroup providerGroup);
     void delete(Long id);
+    boolean existsById(Long id);
 }

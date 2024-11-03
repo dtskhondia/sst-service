@@ -1,6 +1,5 @@
 package ge.bog.sst_service.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import ge.bog.sst_service.domain.PaymentStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -9,10 +8,9 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Builder
-public record PaymentReadDto(
+public record FeeReadDto(
     @Schema(example = "1")
     Long id,
-    TerminalDto terminal,
     ProviderDto provider,
     @Schema(example = "100000")
     String abonentCode,

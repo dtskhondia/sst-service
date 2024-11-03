@@ -25,4 +25,7 @@ public class MapperConfig {
 
     @Bean
     public PaymentMapper paymentMapper() { return Mappers.getMapper(PaymentMapper.class); }
+
+    @Bean
+    public FeeMapper feeMapper() { return Mappers.getMapper(FeeMapper.class); }
 }

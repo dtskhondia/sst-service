@@ -5,24 +5,17 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import static ge.bog.sst_service.domain.PaymentStatus.CREATED;
-
 @Data
 @Entity
-@Table(name="payments")
-public class Payment {
+@Table(name="fees")
+public class Fee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "terminal_id")
-    private TerminalEntity terminal;
 
     @ManyToOne
     @JoinColumn(name = "provider_id")
@@ -35,11 +28,7 @@ public class Payment {
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus status;
+    private FeeStatus status;
 
     private LocalDateTime createTime;
-
-    public Boolean isValidAmount(){
-        return provider.isAmountInRange(amount);
-    }
 }

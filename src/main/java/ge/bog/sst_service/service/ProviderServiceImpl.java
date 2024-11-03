@@ -4,7 +4,6 @@ import ge.bog.sst_service.domain.Provider;
 import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.repository.ProviderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -23,17 +22,25 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     public Provider findById(Long id) {
-        return providerRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Provide With Id " + id + "Not Found"));
+        return providerRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Provider With Id " + id + " Not Found"));
     }
 
     @Override
     public Provider update(Long id, Provider provider) {
+        if(!existsById(id)) {
+            throw new ResourceNotFoundException("Provider With Id " + id + " Not Found");
+        };
+
         provider.setId(id);
         return providerRepository.save(provider);
     }
 
     @Override
     public void delete(Long id) {
+        if(!existsById(id)) {
+            throw new ResourceNotFoundException("Provider With Id " + id + " Not Found");
+        };
+
         providerRepository.deleteById(id);
     }
 

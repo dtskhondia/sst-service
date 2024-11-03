@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Service
 @Primary
@@ -41,6 +41,10 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Override
     public Terminal update(Long id, Terminal terminal) {
+        if(!existsById(id)) {
+            throw new ResourceNotFoundException("Terminal With Id " + id + " Not Found");
+        };
+
         terminal.setId(id);
         TerminalEntity terminalEntity = terminalMapper.mapToEntity(terminal);
         Terminal updatedTerminal = terminalMapper.mapToDomain(terminalRepository.save(terminalEntity));
@@ -50,12 +54,23 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Override
     public void delete(Long id) {
+        if(!existsById(id)) {
+            throw new ResourceNotFoundException("Terminal With Id " + id + " Not Found");
+        };
+
         terminalRepository.deleteById(id);
     }
 
     @Override
     public boolean existsById(Long id){
         return terminalRepository.existsById(id);
+    }
+
+    @Override
+    public void access(Long id, LocalDateTime accessTime){
+        Terminal terminal = findById(id);
+        terminal.setLastAccessTime(accessTime);
+        update(id, terminal);
     }
 
     private void setAvailableProviders(Terminal terminal){

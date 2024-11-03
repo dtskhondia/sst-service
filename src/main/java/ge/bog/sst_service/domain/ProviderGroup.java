@@ -20,7 +20,7 @@ public class ProviderGroup {
     @NotBlank
     private String description;
 
-    @OneToMany(mappedBy = "providerGroup")
+    @OneToMany(mappedBy = "providerGroup", fetch = FetchType.EAGER)
     private List<Provider> providers;
 }
 

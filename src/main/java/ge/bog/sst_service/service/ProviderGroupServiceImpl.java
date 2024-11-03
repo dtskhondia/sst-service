@@ -20,21 +20,22 @@ public class ProviderGroupServiceImpl implements ProviderGroupService {
     private final ProviderService providerService;
 
     @Override
-
     @Transactional
     public ProviderGroup create(ProviderGroup providerGroup) {
-        List<Provider> providerList = providerService.findAllByIdIn(
+        List<Provider> existingProviders = providerService.findAllByIdIn(
             providerGroup.getProviders()
                 .stream()
                 .map(Provider::getId)
                 .collect(Collectors.toList())
         );
 
-        for(Provider provider : providerList){
+        validateProviders(providerGroup.getProviders(), existingProviders);
+
+        for(Provider provider : existingProviders){
             provider.setProviderGroup(providerGroup);
         }
 
-        providerGroup.setProviders(providerList);
+        providerGroup.setProviders(existingProviders);
 
         return providerGroupRepository.save(providerGroup);
     }
@@ -50,14 +51,57 @@ public class ProviderGroupServiceImpl implements ProviderGroupService {
         return providerGroup;
     }
 
+    @Transactional
     @Override
     public ProviderGroup update(Long id, ProviderGroup providerGroup) {
+        if(!existsById(id)) {
+            throw new ResourceNotFoundException("Provider Group With Id " + id + " Not Found");
+        };
+
         providerGroup.setId(id);
+
+        List<Provider> existingProviders = providerService.findAllByIdIn(
+            providerGroup.getProviders()
+                .stream()
+                .map(Provider::getId)
+                .collect(Collectors.toList())
+        );
+
+        validateProviders(providerGroup.getProviders(), existingProviders);
+
+        for(Provider provider : existingProviders){
+            provider.setProviderGroup(providerGroup);
+        }
+
+        providerGroup.setProviders(existingProviders);
+
         return providerGroupRepository.save(providerGroup);
     }
 
     @Override
     public void delete(Long id) {
+        if(!existsById(id)) {
+            throw new ResourceNotFoundException("Provider Group With Id " + id + " Not Found");
+        };
+
         providerGroupRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(Long id){
+        return providerGroupRepository.existsById(id);
+    }
+
+    private void validateProviders(List<Provider> newProviders, List<Provider> existingProviders){
+        List<Long> existingProviderIds = existingProviders.stream().map(Provider::getId).toList();
+
+        List<Long> missingProviders = newProviders.stream()
+            .map(Provider::getId)
+            .filter(providerId -> !existingProviderIds.contains(providerId))
+            .toList();
+
+        if(!missingProviders.isEmpty()){
+            throw new ResourceNotFoundException("Providers Not Found " + missingProviders.toString());
+        }
     }
 }

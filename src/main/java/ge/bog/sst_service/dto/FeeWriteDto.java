@@ -8,9 +8,7 @@ import lombok.Builder;
 import java.math.BigDecimal;
 
 @Builder
-public record PaymentWriteDto(
-    @Schema(example = "1")
-    @NotNull Long terminalId,
+public record FeeWriteDto(
     @Schema(example = "1")
     @NotNull Long providerId,
     @Schema(example = "100000")

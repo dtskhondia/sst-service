@@ -1,16 +1,17 @@
 package ge.bog.sst_service.service;
 
-import ge.bog.sst_service.domain.Payment;
-import ge.bog.sst_service.domain.PaymentStatus;
-import ge.bog.sst_service.domain.Provider;
+import ge.bog.sst_service.domain.*;
 import ge.bog.sst_service.exception.PaymentProviderNotFoundException;
 import ge.bog.sst_service.exception.PaymentTerminalNotFoundException;
 import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.repository.PaymentRepository;
+import jakarta.persistence.PrePersist;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static ge.bog.sst_service.domain.PaymentStatus.*;
@@ -23,17 +24,25 @@ public class PaymentServiceImpl implements PaymentService {
     private final TerminalService terminalService;
     private final ProviderService providerService;
 
+    @Transactional
     @Override
     public Payment create(Payment payment) {
+        LocalDateTime paymentTime = LocalDateTime.now();
+
         if( !terminalService.existsById(payment.getTerminal().getId())) {
             payment.setTerminal(null);
             payment.setStatus(REJECTED);
+        } else {
+            terminalService.access(payment.getTerminal().getId(), paymentTime);
         }
 
         if(!providerService.existsById(payment.getProvider().getId())){
             payment.setProvider(null);
             payment.setStatus(REJECTED);
         }
+
+        payment.setStatus(CREATED);
+        payment.setCreateTime(paymentTime);
 
         Payment newPayment = paymentRepository.save(payment);
 
@@ -59,13 +68,26 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment update(Long id, Payment payment) {
+        if(!existsById(id)) {
+            throw new ResourceNotFoundException("Payment With ID " + id + " Not Found");
+        };
+
         payment.setId(id);
         return paymentRepository.save(payment);
     }
 
     @Override
     public void delete(Long id) {
+        if(!existsById(id)) {
+            throw new ResourceNotFoundException("Payment With ID " + id + " Not Found");
+        };
+
         paymentRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean existsById(Long id){
+        return paymentRepository.existsById(id);
     }
 
     @Override
@@ -78,6 +100,12 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentRepository.findAllByStatusAndProvider(status, provider);
     }
 
+    @Override
+    public List<Payment> findAll(Long terminalId, Long providerId, String abonentCode) {
+        return paymentRepository.findAllByStatusAndTerminalIdAndProviderIdAndAbonentCode(PERFORMED, terminalId, providerId, abonentCode);
+    }
+
+    @Transactional
     @Override
     public void processPayment(Payment payment){
         payment.setStatus(PENDING);
