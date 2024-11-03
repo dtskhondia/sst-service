@@ -1,6 +1,8 @@
 package ge.bog.sst_service.controller;
 
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import ge.bog.sst_service.dto.TerminalDto;
+import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.mapper.TerminalMapper;
 import ge.bog.sst_service.service.TerminalService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +33,7 @@ public class TerminalController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Create Terminal",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @PostMapping()
@@ -49,7 +52,7 @@ public class TerminalController {
         @ApiResponse(
             responseCode = "404",
             description = "Terminal Not Found",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ResourceNotFoundException.class))
         )
     })
     @GetMapping("/{id}")
@@ -69,7 +72,7 @@ public class TerminalController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed To Update Terminal",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @PutMapping("/{id}")
@@ -87,12 +90,12 @@ public class TerminalController {
         @ApiResponse(
             responseCode = "204",
             description = "Terminal Deleted",
-            content = {}
+            content = @Content(schema = @Schema(implementation = Empty.class))
         ),
         @ApiResponse(
             responseCode = "400",
             description = "Failed To Delete Terminal",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @DeleteMapping("/{id}")

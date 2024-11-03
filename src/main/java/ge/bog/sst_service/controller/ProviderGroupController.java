@@ -1,14 +1,18 @@
 package ge.bog.sst_service.controller;
 
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import ge.bog.sst_service.dto.ProviderGroupDto;
+import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.mapper.ProviderGroupMapper;
 import ge.bog.sst_service.service.ProviderGroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +35,7 @@ public class ProviderGroupController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Create Provider Group",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @PostMapping()
@@ -51,7 +55,7 @@ public class ProviderGroupController {
         @ApiResponse(
             responseCode = "404",
             description = "Provide Group Not Found",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ResourceNotFoundException.class ))
         )
     })
     @GetMapping("/{id}")
@@ -75,7 +79,7 @@ public class ProviderGroupController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Update Provider",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @PutMapping("/{id}")
@@ -93,12 +97,12 @@ public class ProviderGroupController {
         @ApiResponse(
             responseCode = "204",
             description = "Deleted",
-            content = {}
+            content = @Content(schema = @Schema(implementation = Empty.class ))
         ),
         @ApiResponse(
             responseCode = "400",
             description = "Failed to Delete",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @DeleteMapping("/{id}")

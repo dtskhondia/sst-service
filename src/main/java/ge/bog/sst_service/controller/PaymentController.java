@@ -3,6 +3,7 @@ package ge.bog.sst_service.controller;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import ge.bog.sst_service.dto.PaymentReadDto;
 import ge.bog.sst_service.dto.PaymentWriteDto;
+import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.mapper.PaymentMapper;
 import ge.bog.sst_service.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,8 +13,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.xml.sax.ErrorHandler;
 
 @RestController
 @RequestMapping("/payments")
@@ -32,7 +35,7 @@ public class PaymentController {
         @ApiResponse(
             responseCode = "400",
             description = "Failed To Create Payment",
-            content = @Content(schema = @Schema(implementation = Empty.class ))
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @PostMapping()
@@ -52,7 +55,7 @@ public class PaymentController {
         @ApiResponse(
             responseCode = "404",
             description = "Payment Not Found",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ResourceNotFoundException.class ))
         )
     })
     @GetMapping("/{id}")
@@ -72,7 +75,7 @@ public class PaymentController {
         @ApiResponse(
             responseCode = "400",
             description = "Payment Update Failed",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @PutMapping("/{id}")
@@ -90,12 +93,12 @@ public class PaymentController {
         @ApiResponse(
             responseCode = "204",
             description = "Payment Deleted",
-            content = {}
+            content = @Content(schema = @Schema(implementation = Empty.class ))
         ),
         @ApiResponse(
             responseCode = "400",
             description = "Failed To Delete Payment",
-            content = {}
+            content = @Content(schema = @Schema(implementation = ErrorMessage.class ))
         )
     })
     @DeleteMapping("/{id}")
