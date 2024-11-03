@@ -3,6 +3,7 @@ package ge.bog.sst_service.service;
 import ge.bog.sst_service.domain.Payment;
 import ge.bog.sst_service.domain.PaymentStatus;
 import ge.bog.sst_service.domain.Provider;
+import ge.bog.sst_service.exception.PaymentProviderNotFoundException;
 import ge.bog.sst_service.exception.PaymentTerminalNotFoundException;
 import ge.bog.sst_service.exception.ResourceNotFoundException;
 import ge.bog.sst_service.repository.PaymentRepository;
@@ -20,17 +21,35 @@ import static ge.bog.sst_service.domain.PaymentStatus.*;
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final TerminalService terminalService;
+    private final ProviderService providerService;
 
     @Override
-    public Payment create(Payment paymentEntity) {
-        if(!terminalService.existsById(paymentEntity.getTerminal().getId())){
+    public Payment create(Payment payment) {
+        if( !terminalService.existsById(payment.getTerminal().getId())) {
+            payment.setTerminal(null);
+            payment.setStatus(REJECTED);
+        }
+
+        if(!providerService.existsById(payment.getProvider().getId())){
+            payment.setProvider(null);
+            payment.setStatus(REJECTED);
+        }
+
+        Payment newPayment = paymentRepository.save(payment);
+
+        if(payment.getTerminal() == null) {
             throw new PaymentTerminalNotFoundException(
-                "Terminal Not Found. Payment Id : " + paymentEntity.getId() +
-                " Terminal Id : " + paymentEntity.getTerminal().getId()
+                "Payment Rejected. Terminal Not Found"
             );
         }
 
-        return paymentRepository.save(paymentEntity);
+        if(payment.getProvider().getId() == null) {
+            throw new PaymentProviderNotFoundException(
+                "Payment Rejected. Provider Not Found"
+            );
+        }
+
+        return newPayment;
     }
 
     @Override
@@ -39,9 +58,9 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment update(Long id, Payment paymentEntity) {
-        paymentEntity.setId(id);
-        return paymentRepository.save(paymentEntity);
+    public Payment update(Long id, Payment payment) {
+        payment.setId(id);
+        return paymentRepository.save(payment);
     }
 
     @Override

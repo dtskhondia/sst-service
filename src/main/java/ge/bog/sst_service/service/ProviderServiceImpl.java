@@ -38,6 +38,11 @@ public class ProviderServiceImpl implements ProviderService {
     }
 
     @Override
+    public boolean existsById(Long id){
+        return providerRepository.existsById(id);
+    }
+
+    @Override
     public List<Provider> findByActiveTrue() {
         return providerRepository.findByActiveTrue();
     }

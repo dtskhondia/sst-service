@@ -21,4 +21,17 @@ public class GlobalExceptionHandler {
         ErrorMessage errorMessage = new ErrorMessage(ex.getMessage());
         return new ResponseEntity<Object>(errorMessage,HttpStatus.NOT_FOUND);
     }
+
+
+    @ExceptionHandler(value = {PaymentTerminalNotFoundException.class})
+    public ResponseEntity<Object> handlePaymentTerminalNotFoundException(PaymentTerminalNotFoundException ex, WebRequest request){
+        ErrorMessage errorMessage = new ErrorMessage(ex.getMessage());
+        return new ResponseEntity<Object>(errorMessage,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {PaymentProviderNotFoundException.class})
+    public ResponseEntity<Object> handlePaymentProviderNotFoundException(PaymentProviderNotFoundException ex, WebRequest request){
+        ErrorMessage errorMessage = new ErrorMessage(ex.getMessage());
+        return new ResponseEntity<Object>(errorMessage,HttpStatus.BAD_REQUEST);
+    }
 }
