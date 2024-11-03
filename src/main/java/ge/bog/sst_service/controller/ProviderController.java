@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.api.ErrorMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ public class ProviderController {
     @Operation(summary = "Create Provider")
     @ApiResponses(value = {
         @ApiResponse(
-            responseCode = "200",
+            responseCode = "201",
             description = "Provider Created"
         ),
         @ApiResponse(
@@ -40,11 +39,12 @@ public class ProviderController {
         )
     })
     @PostMapping()
-    ProviderDto create(
+    ResponseEntity<ProviderDto> create(
         @Parameter(description = "Provider Object to Be Created")
         @RequestBody @Valid ProviderDto providerDto
     ){
-        return providerMapper.map(providerService.create(providerMapper.map(providerDto)));
+        ProviderDto newProvider = providerMapper.map(providerService.create(providerMapper.map(providerDto)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(newProvider);
     }
 
     @Operation(summary = "Find Provider By Id")
@@ -96,7 +96,7 @@ public class ProviderController {
     @Operation(summary = "Delete Provider By Id")
     @ApiResponses(value = {
         @ApiResponse(
-            responseCode = "200",
+            responseCode = "204",
             description = "Provider Deleted",
             content = @Content(schema = @Schema(implementation = Empty.class ))
         ),

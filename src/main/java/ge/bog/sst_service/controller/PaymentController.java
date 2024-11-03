@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.xml.sax.ErrorHandler;
@@ -41,11 +42,12 @@ public class PaymentController {
         )
     })
     @PostMapping()
-    PaymentReadDto create(
+    ResponseEntity<PaymentReadDto> create(
         @Parameter(description = "Payment To Be Created")
         @RequestBody @Valid PaymentWriteDto paymentWriteDto
     ){
-        return paymentMapper.map(paymentService.create(paymentMapper.map(paymentWriteDto)));
+        PaymentReadDto newPayment = paymentMapper.map(paymentService.create(paymentMapper.map(paymentWriteDto)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(newPayment);
     }
 
     @Operation(summary = "Find Payment By Id")

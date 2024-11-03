@@ -13,8 +13,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
-import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +29,7 @@ public class TerminalController {
     @Operation(summary = "Create Terminal")
     @ApiResponses(value = {
         @ApiResponse(
-            responseCode = "200",
+            responseCode = "201",
             description = "Terminal Created"
         ),
         @ApiResponse(
@@ -39,10 +39,11 @@ public class TerminalController {
         )
     })
     @PostMapping()
-    TerminalDto create(
+    ResponseEntity<TerminalDto> create(
         @Parameter(description = "Terminal Object to Be Created")
         @RequestBody @Valid TerminalDto terminalDto){
-        return terminalMapper.map(terminalService.create(terminalMapper.map(terminalDto)));
+        TerminalDto newTerminal = terminalMapper.map(terminalService.create(terminalMapper.map(terminalDto)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(newTerminal);
     }
 
     @Operation(summary = "Find Terminal By Id")
