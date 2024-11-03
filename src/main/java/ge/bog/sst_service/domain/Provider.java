@@ -15,9 +15,9 @@ public class Provider {
 
     private String name;
 
-    private String deptCode; //TODO: how to use
+    private String deptCode;
 
-    private String payCode; //TODO: how to use
+    private String payCode;
 
     private Integer maxThreads;
 

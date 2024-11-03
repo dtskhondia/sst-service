@@ -40,6 +40,16 @@ public class TerminalServiceImpl implements TerminalService {
     }
 
     @Override
+    public TerminalEntity findEntityById(Long id) {
+        TerminalEntity terminalEntity = terminalRepository.findById(id).orElseThrow(
+            () -> new ResourceNotFoundException("Terminal With Id " + id + " Not Found")
+        );
+
+        return terminalEntity;
+    }
+
+
+    @Override
     public Terminal update(Long id, Terminal terminal) {
         if(!existsById(id)) {
             throw new ResourceNotFoundException("Terminal With Id " + id + " Not Found");

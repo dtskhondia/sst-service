@@ -1,6 +1,6 @@
 package ge.bog.sst_service.dto;
 
-import ge.bog.sst_service.domain.PaymentStatus;
+import ge.bog.sst_service.domain.FeeStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 
@@ -16,6 +16,6 @@ public record FeeReadDto(
     String abonentCode,
     @Schema(example = "50")
     BigDecimal amount,
-    PaymentStatus status,
+    FeeStatus status,
     LocalDateTime createTime
 ){}

@@ -58,6 +58,9 @@ public class PaymentServiceImpl implements PaymentService {
             );
         }
 
+        newPayment.setProvider(providerService.findById(payment.getProvider().getId()));
+        newPayment.setTerminal(terminalService.findEntityById(payment.getTerminal().getId()));
+
         return newPayment;
     }
 

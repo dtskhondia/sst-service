@@ -26,15 +26,13 @@ public class FeeServiceImpl implements FeeService {
     @Transactional
     @Override
     public Fee create(Fee fee) {
-        LocalDateTime paymentTime = LocalDateTime.now();
-
         if(!providerService.existsById(fee.getProvider().getId())){
             fee.setProvider(null);
             fee.setStatus(FeeStatus.REJECTED);
         }
 
         fee.setStatus(FeeStatus.CREATED);
-        fee.setCreateTime(paymentTime);
+        fee.setCreateTime(LocalDateTime.now());
 
         Fee newFee = feeRepository.save(fee);
 
@@ -43,6 +41,8 @@ public class FeeServiceImpl implements FeeService {
                 "Fee Rejected. Provider Not Found"
             );
         }
+
+        newFee.setProvider(providerService.findById(fee.getProvider().getId()));
 
         return newFee;
     }
