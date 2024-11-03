@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springdoc.api.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -99,10 +100,12 @@ public class TerminalController {
         )
     })
     @DeleteMapping("/{id}")
-    void delete(
+    ResponseEntity<Void> delete(
         @Parameter(name="id", description = "Terminal Id", example = "1")
         @PathVariable Long id
     ){
         terminalService.delete(id);
+        //TODO: return 204 on every delete
+        return ResponseEntity.noContent().build();
     }
 }

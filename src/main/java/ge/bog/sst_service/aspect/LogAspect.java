@@ -32,11 +32,11 @@ public class LogAspect {
 
         try {
             Object result = joinPoint.proceed();
-            logService.logResponse(logEntity, response, result);
+            logService.logResponse(logEntity, response, result, null);
             return result;
-        } catch (Exception e) {
-            logService.logError(request, response, e);
-            throw e;
+        } catch (Exception ex) {
+            logService.logResponse(logEntity, response, null, ex);
+            throw ex;
         }
     }
 

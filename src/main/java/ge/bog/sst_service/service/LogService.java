@@ -6,6 +6,5 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public interface LogService {
     LogEntity logRequest(HttpServletRequest httpServletRequest);
-    LogEntity logResponse(LogEntity logEntity, HttpServletResponse httpServletResponse, Object result);
-    LogEntity logError(HttpServletRequest request, HttpServletResponse response, Exception e);
+    LogEntity logResponse(LogEntity logEntity, HttpServletResponse httpServletResponse, Object result, Exception ex);
 }
