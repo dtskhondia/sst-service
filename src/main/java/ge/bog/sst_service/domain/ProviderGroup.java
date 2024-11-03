@@ -20,7 +20,7 @@ public class ProviderGroup {
     @NotBlank
     private String description;
 
-    @OneToMany(mappedBy = "providerGroup",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "providerGroup")
     private List<Provider> providers;
 }
 

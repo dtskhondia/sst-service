@@ -64,9 +64,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setStatus(PENDING);
         update(payment.getId(), payment);
 
-        if( payment.getProvider().getMinAmount().compareTo(payment.getAmount()) > 0 ||
-            payment.getProvider().getMaxAmount().compareTo(payment.getAmount()) < 0)
-        {
+        if( !payment.isValidAmount()) {
             payment.setStatus(REJECTED);
             update(payment.getId(), payment);
             return;
